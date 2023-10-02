@@ -1,0 +1,36 @@
+PROJETO DE GERENCIAMENTO DE CHAMADOS:
+
+CADASTRO DE USUARIOS
+Nome
+Sobrenome
+E-mail
+Perfil(tecnico,cliente)
+Empresa
+
+CADASTRO DE EMPRESAS
+CNPJ/CPF
+Razão Social
+Nível
+Tipo (empresa prestadora do serviço/cliente)
+
+CADASTRO DE SITUAÇÃO DO PROJETO
+Descrição
+
+CADASTRO DE CHAMADOS
+Titulo
+Descrição
+Anexos
+Usuário
+Empresa
+Situação
+
+CADASTRO DE ITENS DO CHAMADO
+Descrição
+Tecnico
+Chamado
+Sequencial
+
+
+Envio de e-mail a cada abertura de chamado (para email pré cadastrado da empresa prestadora do serviço)
+Envio de e-mail a cada cadastro de itens do chamado
+ENvio de e-mail na finalização do chamado

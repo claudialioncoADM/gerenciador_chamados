@@ -1,0 +1,63 @@
+***********************************************************************
+CRIAÇÃO DO PROJETO BASE
+***********************************************************************
+
+-> Cria projeto laravel(dentro da pasta criada no c:\):
+	> composer create-project laravel/laravel .
+
+-> Verificar se ta td ok:
+	>php artisan serve
+
+-> Acessar o endereço gerado:
+	> http:\\127.0.0.1:8000
+
+-> Ajustar a conexão do banco de dados no arquivo .env
+
+-> Criar a database
+
+	DB_CONNECTION=mysql
+	DB_HOST=127.0.0.1
+	DB_PORT=3306
+	DB_DATABASE=credbank
+	DB_USERNAME=root
+	DB_PASSWORD=*******
+
+-> Criar o banco de dados (criar o schema no banco)
+
+-> Testar conexão
+	> php artisan db:monitor
+
+-> Criar tabelas do banco de dados
+	> php artisan migrate
+
+***********************************************************************
+PAINEL ADMINISTRATIVO
+***********************************************************************
+
+Laravel Jetstream: https://jetstream.laravel.com/introduction.html
+
+-> Instalar o componente Jetstream no projeto
+	> composer require laravel/jetstream
+
+-> Configurar a instalação do framework para criar aplicações SPA (single-page application)(Livewire):
+	> php artisan jetstream:install livewire
+	> npm install
+	> npm run build
+	> php artisan migrate
+
+-> Configurando linguagem/tradução: https://laravel-lang.com/
+	> composer require laravel-lang/common --dev
+	> php artisan lang:add pt_BR
+	> php artisan lang:update
+
+-> Acessar o arquivo config/app.php e trocar para: 'locale' => 'pt_BR',
+
+-> Baixa arquivos de tradução:
+	> composer require --dev laravel-lang/publisher
+
+-> Cria arquivos de tradução:
+	> php artisan lang:publish
+
+***********************************************************************
+PROJETO
+***********************************************************************
