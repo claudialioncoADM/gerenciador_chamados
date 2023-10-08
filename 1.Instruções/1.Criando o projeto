@@ -1,9 +1,27 @@
+Instalar:
+VSCode: Ferramenta de desenvolvimento
+PHP
+Instalar composer: https://getcomposer.org/download/
+Instalar Node.js: https://nodejs.org/en
+
+***********************************************************************
+PROJETO EM MVC
+***********************************************************************
+
+MVC -> Model - View - Controller
+Model 		(dados)  	-> Integra com o Banco de dados;
+View 		(tela/html) -> Exibição das infos para usuario
+Controller  (fluxo)		-> Gerencia o fluxo
+
+Rotas -> caminhos -> sempre nos leva a um controller
+
+
 ***********************************************************************
 CRIAÇÃO DO PROJETO BASE
 ***********************************************************************
 
 -> Cria projeto laravel(dentro da pasta criada no c:\):
-	> composer create-project laravel/laravel .
+	> composer create-project laravel/laravel NOME_DO_PROJETO
 
 -> Verificar se ta td ok:
 	>php artisan serve
@@ -61,3 +79,123 @@ Laravel Jetstream: https://jetstream.laravel.com/introduction.html
 ***********************************************************************
 PROJETO
 ***********************************************************************
+* View(tela/html) -> Exibição das infos para usuario
+
+* Model(dados) -> Integra com o Banco de dados
+	> Criar com o nome da tabela.
+	Ex: Cliente/Produto/Fornecedor
+
+* Controller(fluxo) -> Gerencia o fluxo
+	> Criar com nome da Tabela + Controller (Fica mais claro as definições)
+	Ex: ClienteController/ProdutoController/FornecedorController
+
+
+***********************************************************************
+MODEL - CRIANDO AS TABELAS DO BANCO DE DADOS
+***********************************************************************
+
+# Criando MODELO DE DADOS ("convera com banco de dados") e as MIGRAÇÕES ("tabelas")
+	Pode criar o modelo de dados e as migrações de forma conjunta ou separada.
+
+	* Forma separada:
+	> php artisan make:model NOME_DO_MODELO
+		Local: local: App\Models
+
+	> php artisan make:migration NOME_DA_TABELA
+		Local: ./database/Migrations
+
+	* Criar ao mesmo momento:
+	> php artisan make:model NOME_DEFINIDO -m
+	(Pode ser usado --migration ou -m)
+
+
+	Exemplo:
+	-> Na migration, add os campos para criar:
+
+	public function up(): void
+    {
+        Schema::create('NOME_DA_TABELA', function (Blueprint $table) {
+            $table->id();                           // integer id
+            $table->string('assunto');              // assunto varchar (125)  $table->string('assunto',20); define tamanho
+            $table->string('email');                // email varchar (125)
+            $table->text('mensagem')->nullable();   // mensagem text
+            $table->timestamps();                   // create_at, update_at (datas de criação e modificação)
+        });
+    }
+
+	IMPORTANTE: Link para tipos de colunas:
+	https://laravel.com/docs/10.x/migrations#available-column-types
+
+	-> No modelo adicionar as colunas;
+	 protected $fillable = ['assunto', 'email','mensagem'];
+
+
+	Após a criação dos campos nas migrações (migration), deve-se executar comando para aplicar os campos no banco de dados:
+	-> Aplicando as migrações no banco de dados
+		> php artisan migrate
+
+	OBS: UMA VEZ EXECUTADO O MIGRATE, CASO NECESSÁRIA ALTERAÇÃO DA MIGRAÇÃO, DEVE-SE CRIAR UMA NOVA MIGRAÇÃO,
+	POIS CADA MIGRAÇÃO EXECUTA UMA ÚNICA VEZ.
+
+	***************************************************************************************************************************
+
+	#Criando dados falsos
+	> php artisan make:seed TABELA
+		local: \Database\Seeder
+
+	#Criando factory
+	> php artisan make:factory TABELAFactory
+		local: .\Database\Factories
+
+	No método "definition()" adicionar os parametros para o modelo de dados de acordo com o "$fillable"
+
+		return [
+            'assunto' => $this->faker->paragraph(),
+            'mail'=>$this->faker->email(),
+            'mensagem'=>$this->faker->paragraph(),
+        ];
+
+	IMPORTANTE: Link do faker, que cria dados falsos automaticamente
+	https://fakerphp.github.io/formatters/
+
+	#Incluir o seeder no DatabaseSeeder.php
+		$this->call([
+            TABELASeed::class
+        ]);
+
+	#Executa os seeders no banco de dados
+		> php artisan db:seed
+
+
+***********************************************************************
+CONTROLLER - CRIANDO O CONTROLADOR DE FLUXO
+***********************************************************************
+
+	#Criar controller
+	> php artisan make:controller TABELAController -r
+		Local: ./app/Http/Controllers
+
+	OBS: Comando resource - Adiciona os métodos comum de CRUD
+	> php artisan make:controller TABELAController --resource
+
+	(Pode ser usado --resource ou -r)
+
+
+***********************************************************************
+ROTAS - CRIANDO AS ROTAS DE NAVEGAÇÃO
+***********************************************************************
+
+	#Criar as rotas:
+		Arquivo : ./routes/web.php
+		OBS: web.php (criado para rotas de usuário)
+
+	#passo 1 - adiciona o controller para ser utilizada
+		use App\Http\Controllers\Contato;
+
+	#passo 2 - definir a rota
+		Route::get('/contato', [Contato::class, 'index']);
+		Parametros:
+		Definicoes da rota: '/contato'
+		Definicao de classe e metodo: [Contato::class, 'index']
+
+		Obs: Versões do laravel anteriores a 9 usam a definicao de classe e metodo assim: 'Contato@index'
