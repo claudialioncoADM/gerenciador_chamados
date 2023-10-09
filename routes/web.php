@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmpresasController;
 use App\Http\Controllers\HomePageController;
 use Illuminate\Support\Facades\Route;
 
@@ -7,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/',[HomePageController::class,'index']);
+Route::get('/', [HomePageController::class, 'index']);
 
 Route::middleware([
     'auth:sanctum',
@@ -17,4 +18,6 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::resource('/empresa', EmpresasController::class);
 });
