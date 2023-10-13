@@ -3,15 +3,16 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>CodePen - Navbar Pure CSS</title>
     <link rel='stylesheet' href="{{ asset('css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css') }}">
 </head>
 
 <body>
-    @extends('layouts.menu_lateral')
-
+    <main class="container">
+        @extends('layouts.menu_lateral')
+        @yield('conteudo')
+    </main>
 </body>
 
 </html>

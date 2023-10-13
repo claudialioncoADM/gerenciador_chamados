@@ -2,7 +2,7 @@
  <div id="nav-bar">
      <input id="nav-toggle" type="checkbox" />
      <div id="nav-header"><a id="nav-title" href="https://codepen.io" target="_blank"><i
-                 class="fab fa-codepen"></i>CHAMADOS</a>
+                 class="fab fa-codepen"></i> CHAMADOS</a>
          <label for="nav-toggle"><span id="nav-toggle-burger"></span></label>
          <hr />
      </div>
